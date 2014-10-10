@@ -1,6 +1,28 @@
 #include "CppUTest/TestHarness.h"
 #include "Library/Author.hpp"
-#include "Library/Book.hpp"
+#include "Library/Entry.hpp"
+
+class AuthorOnlyEntry : public Library::Entry
+{
+public:
+    AuthorOnlyEntry(std::vector<std::string> authors)
+        : authors_(authors)
+    {}
+
+private:
+    const std::string & get_title() const override
+    {
+        return title_;
+    }
+
+    const std::vector<std::string> & get_authors() const override
+    {
+        return authors_;
+    }
+
+    std::vector<std::string> authors_;
+    std::string title_;
+};
 
 TEST_GROUP(AuthorTests)
 {
@@ -20,10 +42,8 @@ TEST(AuthorTests, initialize_author)
 
 TEST(AuthorTests, adding_entry_for_author)
 {
-    auto entry = std::make_shared<Library::Book>("Lord of the rings",
-            std::vector<std::string>{"J.R.R. Tolkien"},
-            "",
-            "");
+    auto entry = std::make_shared<AuthorOnlyEntry>(
+            std::vector<std::string>{"J.R.R. Tolkien"});
 
     author->add_entry(entry);
     CHECK_EQUAL(1U, author->number_of_entries());
@@ -33,9 +53,6 @@ TEST(AuthorTests, adding_entry_for_author)
 TEST(AuthorTests, adding_entry_from_different_author_throws)
 {
     CHECK_THROWS(Library::NotAuthorsEntryException,
-            author->add_entry(std::make_shared<Library::Book>(
-                "Elantris",
-                std::vector<std::string>{"Brandon Sanderson"},
-                "",
-                "")));
+            author->add_entry(std::make_shared<AuthorOnlyEntry>(
+                std::vector<std::string>{"Brandon Sanderson"})));
 }
