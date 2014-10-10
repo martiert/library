@@ -1,8 +1,7 @@
 project(LibraryCore CXX)
 include_directories(include)
 
-set(src src/Book.cpp
-        src/Author.cpp
+set(src src/Author.cpp
         src/Collection.cpp
 )
 
