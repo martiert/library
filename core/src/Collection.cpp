@@ -1,5 +1,7 @@
 #include "Library/Collection.hpp"
 #include "Library/Entry.hpp"
+#include <boost/algorithm/string/find.hpp>
+#include <iostream>
 
 namespace Library
 {
@@ -22,10 +24,21 @@ void Collection::add_entry(std::shared_ptr<Entry> book)
 
 std::vector<std::shared_ptr<Entry>> Collection::find_entries_from_author(const std::string & name) const
 {
-    auto author = authors_.find(name);
-    if (author == end(authors_))
-        return std::vector<std::shared_ptr<Entry>>{};
-    return author->second.get_entries();
+    auto result = std::vector<std::shared_ptr<Entry>>{};
+    for (const auto & author : authors_)
+        if (boost::algorithm::ifind_first(author.first, name))
+            result.insert(end(result), begin(author.second.get_entries()), end(author.second.get_entries()));
+    return result;
+}
+
+std::vector<std::shared_ptr<Entry>> Collection::find_entries_with_title(const std::string & title) const
+{
+    auto result = std::vector<std::shared_ptr<Entry>>{};
+    for (auto entry : entries_)
+        if (boost::algorithm::ifind_first(entry->get_title(), title))
+            result.push_back(entry);
+
+    return result;
 }
 
 }

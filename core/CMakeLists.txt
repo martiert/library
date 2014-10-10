@@ -1,5 +1,7 @@
 project(LibraryCore CXX)
-include_directories(include)
+
+find_package(Boost REQUIRED)
+include_directories(include ${Boost_INCLUDE_DIRS})
 
 set(src src/Author.cpp
         src/Collection.cpp

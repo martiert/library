@@ -18,6 +18,7 @@ public:
     bool empty() const;
     void add_entry(std::shared_ptr<Entry> book);
     std::vector<std::shared_ptr<Entry>> find_entries_from_author(const std::string & name) const;
+    std::vector<std::shared_ptr<Entry>> find_entries_with_title(const std::string & title) const;
 
 private:
     std::vector<std::shared_ptr<Entry>> entries_;
