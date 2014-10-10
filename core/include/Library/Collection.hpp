@@ -10,17 +10,17 @@
 namespace Library
 {
 
-class Book;
+class Entry;
 
 class Collection
 {
 public:
     bool empty() const;
-    void add_book(std::shared_ptr<Book> book);
-    std::vector<std::shared_ptr<Book>> find_books_from_author(const std::string & name) const;
+    void add_entry(std::shared_ptr<Entry> book);
+    std::vector<std::shared_ptr<Entry>> find_entries_from_author(const std::string & name) const;
 
 private:
-    std::vector<std::shared_ptr<Book>> books_;
+    std::vector<std::shared_ptr<Entry>> entries_;
     std::map<std::string, Author> authors_;
 };
 

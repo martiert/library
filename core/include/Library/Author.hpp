@@ -9,9 +9,9 @@
 namespace Library
 {
 
-class Book;
+class Entry;
 
-class NotAuthorsBookException : public std::exception
+class NotAuthorsEntryException : public std::exception
 {
 };
 
@@ -22,13 +22,13 @@ public:
 
     std::string get_name() const;
 
-    void add_book(std::shared_ptr<Book> book);
-    const std::vector<std::shared_ptr<Book>> & get_books() const;
-    size_t number_of_books() const;
+    void add_entry(std::shared_ptr<Entry> book);
+    const std::vector<std::shared_ptr<Entry>> & get_entries() const;
+    size_t number_of_entries() const;
 
 private:
     std::string name_;
-    std::vector<std::shared_ptr<Book>> books_;
+    std::vector<std::shared_ptr<Entry>> entries_;
 };
 
 }
