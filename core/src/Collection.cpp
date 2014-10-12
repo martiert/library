@@ -1,7 +1,6 @@
 #include "Library/Collection.hpp"
 #include "Library/Entry.hpp"
 #include <boost/algorithm/string/find.hpp>
-#include <iostream>
 
 namespace Library
 {
